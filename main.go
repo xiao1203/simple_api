@@ -186,6 +186,14 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	endTime := startTime.Add(time.Hour)
 	filtered := filterStockList(stockList, code, startTime, endTime)
 
+	// パラメータの確認
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Println("code: " + code)
+	fmt.Println("startTime: " + time2str(startTime))
+	fmt.Println("endTime: " + time2str(endTime))
+	fmt.Println("filteredの長さ: " + strconv.Itoa(len(filtered)))
+	fmt.Println("-------------------------------------------------------------")
+
 	open := filtered[0].Price
 	close := filtered[len(filtered)-1].Price
 
@@ -220,4 +228,9 @@ func filterStockList(stockList []Stock, code string, startTime, endTime time.Tim
 		}
 	}
 	return filtered
+}
+
+func time2str(t time.Time) string {
+	// レシーバーtを、"YYYY-MM-DDTHH-MM-SSZZZZ"という形の文字列に変換する
+	return t.Format("2006-01-02T15:04:05Z07:00")
 }
