@@ -141,6 +141,9 @@ type Stock struct {
 }
 
 func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint16) (CandleResponse, error) {
+	// JSTのタイムゾーンを定義
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60) // UTC+9時間
+
 	// csvファイルからデータを取得
 	csvFile, err := os.Open("order_books.csv")
 	if err != nil {
@@ -182,7 +185,7 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	}
 
 	// ローソク足（1時間）の算出
-	startTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, time.Local)
+	startTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, jst)
 	endTime := startTime.Add(time.Hour)
 	filtered := filterStockList(stockList, code, startTime, endTime)
 
@@ -191,6 +194,7 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	fmt.Println("code: " + code)
 	fmt.Println("startTime: " + time2str(startTime))
 	fmt.Println("endTime: " + time2str(endTime))
+	fmt.Println("stockListの長さ: " + strconv.Itoa(len(stockList)))
 	fmt.Println("filteredの長さ: " + strconv.Itoa(len(filtered)))
 	fmt.Println("-------------------------------------------------------------")
 
