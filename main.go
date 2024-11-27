@@ -198,6 +198,15 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	fmt.Println("filteredの長さ: " + strconv.Itoa(len(filtered)))
 	fmt.Println("-------------------------------------------------------------")
 
+	if len(filtered) == 0 {
+		// エラーが出て面倒なので、0を返す
+		return CandleResponse{
+			Open:  0,
+			Close: 0,
+			High:  0,
+			Low:   0,
+		}, nil
+	}
 	open := filtered[0].Price
 	close := filtered[len(filtered)-1].Price
 

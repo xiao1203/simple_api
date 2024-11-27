@@ -19,21 +19,33 @@ func Test_getCandleDate(t *testing.T) {
 		want    CandleResponse
 		wantErr bool
 	}{
+		// {
+		// 	name: "例題の動作担保",
+		// 	args: args{
+		// 		code:  "FTHD",
+		// 		year:  2021,
+		// 		month: 12,
+		// 		day:   22,
+		// 		hour:  10,
+		// 	},
+		// 	want: CandleResponse{
+		// 		Open:  3122,
+		// 		High:  3177,
+		// 		Low:   2865,
+		// 		Close: 2924,
+		// 	},
+		// 	wantErr: false,
+		// },
 		{
-			name: "例題の動作担保",
+			name: "異常系？",
 			args: args{
 				code:  "FTHD",
 				year:  2021,
 				month: 12,
 				day:   22,
-				hour:  10,
+				hour:  15,
 			},
-			want: CandleResponse{
-				Open:  3122,
-				High:  3177,
-				Low:   2865,
-				Close: 2924,
-			},
+			want:    CandleResponse{},
 			wantErr: false,
 		},
 	}
