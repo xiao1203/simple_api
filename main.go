@@ -31,7 +31,7 @@ type LoginResponse struct {
 }
 
 type CandleResponse struct {
-	Open  uint64 `json:"ope"`
+	Open  uint64 `json:"open"`
 	Close uint64 `json:"close"`
 	High  uint64 `json:"high"`
 	Low   uint64 `json:"low"`
