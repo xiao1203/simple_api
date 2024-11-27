@@ -185,8 +185,8 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	}
 
 	// ローソク足（1時間）の算出
-	startTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, jst)
-	endTime := startTime.Add(time.Hour)
+	endTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, jst)
+	startTime := endTime.Add(-1 * time.Hour)
 	filtered := filterStockList(stockList, code, startTime, endTime)
 
 	// パラメータの確認
