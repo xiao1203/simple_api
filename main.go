@@ -144,6 +144,15 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	// JSTのタイムゾーンを定義
 	jst := time.FixedZone("Asia/Tokyo", 9*60*60) // UTC+9時間
 
+	// リクエストの内容を確認
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Println("code: " + code)
+	fmt.Println("year: " + strconv.Itoa(int(year)))
+	fmt.Println("month: " + strconv.Itoa(int(month)))
+	fmt.Println("day: " + strconv.Itoa(int(day)))
+	fmt.Println("hour: " + strconv.Itoa(int(hour)))
+	fmt.Println("-------------------------------------------------------------")
+
 	// csvファイルからデータを取得
 	csvFile, err := os.Open("order_books.csv")
 	if err != nil {
@@ -185,8 +194,8 @@ func getCandleDate(code string, year uint16, month uint16, day uint16, hour uint
 	}
 
 	// ローソク足（1時間）の算出
-	endTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, jst)
-	startTime := endTime.Add(-1 * time.Hour)
+	startTime := time.Date(int(year), time.Month(month), int(day), int(hour), 0, 0, 0, jst)
+	endTime := startTime.Add(time.Hour)
 	filtered := filterStockList(stockList, code, startTime, endTime)
 
 	// パラメータの確認
